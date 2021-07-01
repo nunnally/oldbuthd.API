@@ -1,5 +1,5 @@
 import User from "../models/user.js";
-
+import bcrypt from "bcryptjs";
 class UserController{
 
     static async getAll(req,res){
@@ -16,6 +16,8 @@ class UserController{
             return res.send(409)
         }
 
+        password= bcrypt.hashSync(password, 8);
+
         try{
             await User.insert({name,password,email,cpf})
             res.send(200)
@@ -27,7 +29,7 @@ class UserController{
 
     static async specificUser(req,res){
         
-        const data = await User.getOne(req.params.id)
+        const data = await User.getById(req.params.id)
         res.status(200).send(data)
         
     }

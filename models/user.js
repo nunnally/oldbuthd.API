@@ -8,8 +8,8 @@ class User {
         return data;
     }
 
-    static async getOne(id){
-        const data = await knex('users').where('id',id);
+    static async getById(id){
+        const data = await knex('users').where({id});
         return data;
     }
 
@@ -22,6 +22,13 @@ class User {
     static async insert(user) {
 
         const data = await knex('users').insert(user);
+        return data;
+
+    }
+
+    static async where(where) {
+
+        const data = await knex('users').where(where);
         return data;
 
     }
